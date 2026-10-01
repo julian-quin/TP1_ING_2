@@ -7,7 +7,8 @@ public enum Categoria
     Bebidas,
     panaderia,
     Limpieza,
-    NoPerecedero
+    NoPerecedero,
+    Verdura
 }
 public class Producto: IProducto // firma el contrato
 {
