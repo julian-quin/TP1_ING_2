@@ -1,5 +1,6 @@
 ﻿using Xunit;
 using Negocio;
+using Moq;
 public class Test_Tienda
 {
 
@@ -8,7 +9,6 @@ public class Test_Tienda
     // estructura de nombre del metodo que prueban ( NombreDelMetodo_EscenarioAProbar_ResultadoEsperado )
    
     // -------------------------------------- PARTE DEL PUNTO 1 ------------------------------------------------------------ 
-
 
 
     //a. agregar producto al inventario
@@ -103,5 +103,34 @@ public class Test_Tienda
 
     // -------------------------------------- FIN PARTE DEL PUNTO 1 ------------------------------------------------------------ 
 
+    
 
+    
+    
+    
+    // -------------------------------------------- PUNTO 3 ------------------------------------------------------------ 
+    
+    [Fact]
+    public void AplicarDescuento_CalculaCorrectamente_VerificaLlamadaActualizarPrecio()
+    {
+        // Arrange
+        Tienda miTienda = new Tienda();
+        var mockProducto = new Mock<Producto>();
+
+        // Le programamos las respuestas fijas (Esto sería actuar como Stub)
+        mockProducto.SetupGet(p => p.Nombre).Returns("Yerba");
+        mockProducto.SetupGet(p => p.Precio).Returns(1000);
+
+        // Agregamos el objeto simulado a la tienda
+        miTienda.AgregarProducto(mockProducto.Object);
+
+        // Act
+        // Le pedimos a la tienda que le aplique un 20% de descuento a la Yerba
+        miTienda.AplicarDescuento("Yerba", 20);
+
+        // Assert
+        // Acá usamos el poder del Mock: le preguntamos si la Tienda se comunicó con él
+        // y le pasó el número 800 a su método ActualizarPrecio. (Times.Once verifica que lo llamó 1 sola vez).
+        mockProducto.Verify(p => p.ActualizarPrecio(800), Times.Once);
+    }
 }

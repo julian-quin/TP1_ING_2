@@ -10,18 +10,26 @@ public enum Categoria
     NoPerecedero,
     Verdura
 }
+
 public class Producto
 {
-    // Constructor
+    
+    public virtual string Nombre { get; set; }
+    public virtual double Precio { get; set; }
+    public virtual Categoria Categoria { get; set; }
+
+    public Producto() { } 
+
     public Producto(string nombre, double precio, Categoria categoria)
     {
-        Nombre = nombre;     // Asignación directa a la propiedad
-        Precio = precio;     // Asignación directa a la propiedad
-        Categoria = categoria; // Asignación directa a la propiedad
+        Nombre = nombre;
+        Precio = precio;
+        Categoria = categoria;
     }
-
-    // Propiedades automáticas
-    public string Nombre { get; set; }
-    public double Precio { get; set; }
-    public Categoria Categoria { get; set; }
+    public virtual void ActualizarPrecio(double nuevoPrecio)
+    {
+        Precio = nuevoPrecio;
+    }
 }
+
+// nota: // Tienen que tener "virtual" para que Moq funcione, sino falla en el punto3 

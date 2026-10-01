@@ -33,34 +33,18 @@ public class Tienda
 
     public bool AplicarDescuento(string nombre, double porcentaje)
     {
-        var productoEncontrado = BuscarProducto(nombre);
+        var producto = BuscarProducto(nombre);
 
-        if (productoEncontrado == null)
+        if (producto == null)
         {
             return false;
         }
+        double descuento = producto.Precio * (porcentaje / 100);
+        double precioFinal = producto.Precio - descuento;
 
-        double montoDescuento = productoEncontrado.Precio * (porcentaje / 100);
-        productoEncontrado.Precio -= montoDescuento;
+        producto.ActualizarPrecio(precioFinal);
 
         return true;
     }
-
-    public bool ModificarPrecio(string nombre, double nuevoPrecio)
-    {
-   
-        if (nuevoPrecio > 0)
-        {
-            var productoEncontrado = BuscarProducto(nombre);
-
-            if (productoEncontrado != null)
-            {
-                productoEncontrado.Precio = nuevoPrecio;
-                return true;
-            }
-        }   
-        return false;
-    }
-
 
 }
