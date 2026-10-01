@@ -65,6 +65,7 @@ public class TiendaService
         {
             var producto = BuscarProducto(nombre);
             double nuevoPrecio = producto.Precio - ((producto.Precio * porcentaje) / 100);
+           
             producto.ModificarPrecio(nuevoPrecio);
         }
            
