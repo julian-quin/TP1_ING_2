@@ -1,5 +1,6 @@
-TRABAJO PRACTICO N 1 - INGENIERIA DE SOFTWARE II
-integrantes: 
-Isasmendi, Javier Alfredo
-Falco, luciano Sebastian
-Quinteros, Julio Cesar
+# TRABAJO PRÁCTICO N 1 - INGENIERÍA DE SOFTWARE II
+
+**Integrantes:**
+- Isasmendi, Javier Alfredo
+- Falco, Luciano Sebastian
+- Quinteros, Julio Cesar
