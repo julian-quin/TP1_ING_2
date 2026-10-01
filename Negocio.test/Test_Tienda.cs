@@ -90,6 +90,8 @@ public class Test_Tienda
         Tienda miTienda = new Tienda(); 
         Producto producto1 = new Producto("Manzana", 1000, Categoria.Verdura);
         Producto producto2 = new Producto("Coca Cola", 1500, Categoria.Bebidas);
+        miTienda.AgregarProducto(producto1); 
+        miTienda.AgregarProducto(producto2); 
         
         // Act
         // Intentamos borrar algo que no existe
@@ -115,22 +117,25 @@ public class Test_Tienda
     {
         // Arrange
         Tienda miTienda = new Tienda();
-        var mockProducto = new Mock<Producto>();
-
+        var mockProducto = new Mock<Producto>(); // creo el objeto que se va a comportar como producto (simulamos)
         // Le programamos las respuestas fijas (Esto sería actuar como Stub)
-        mockProducto.SetupGet(p => p.Nombre).Returns("Yerba");
-        mockProducto.SetupGet(p => p.Precio).Returns(1000);
+        mockProducto.SetupGet(p => p.Nombre).Returns("Yerba");// cuando se consulte el nombre de este producto devolvera banana
+        mockProducto.SetupGet(p => p.Precio).Returns(1000);// cuando se consulte por precio devolvera 1000. El metodo Aplicar descuento de tienda verá 1000
+        // Agregamos el objeto simulado a la tienda 
+        miTienda.AgregarProducto(mockProducto.Object); //mockProducto.Object es el Producto simulado.
 
-        // Agregamos el objeto simulado a la tienda
-        miTienda.AgregarProducto(mockProducto.Object);
-
+       
+       
         // Act
-        // Le pedimos a la tienda que le aplique un 20% de descuento a la Yerba
-        miTienda.AplicarDescuento("Yerba", 20);
 
+        // Le pedimos a la tienda que le aplique un 20% de descuento a la Yerba
+        miTienda.AplicarDescuento("Yerba", 20); //Le estamos diciendo a la tienda, aplicale un descuento del 20% al producto yerba.
+        //lugo de aplicar el descuento el precio final queda en 800 (ver logica en tienda).
+
+        
         // Assert
-        // Acá usamos el poder del Mock: le preguntamos si la Tienda se comunicó con él
-        // y le pasó el número 800 a su método ActualizarPrecio. (Times.Once verifica que lo llamó 1 sola vez).
+
+        // con esto verfico que el metodo ActualizarPrecio se haya llamado una vez (por el objeto mockProducto) y que dicho metodo haya recibido el valor 800 como parametro
         mockProducto.Verify(p => p.ActualizarPrecio(800), Times.Once);
     }
 }
