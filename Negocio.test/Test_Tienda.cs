@@ -10,7 +10,6 @@ public class Test_Tienda
    
     // -------------------------------------- PARTE DEL PUNTO 1 ------------------------------------------------------------ 
 
-
     //a. agregar producto al inventario
     [Fact]
     public void AgregarProducto_ProductoValido_SeGuardaCorrectamente()
@@ -41,8 +40,8 @@ public class Test_Tienda
         var resultado = miTienda.BuscarProducto("Banana");
 
         // Assert
-        Assert.NotNull(resultado); // Aseguramos que devolvió algo
-        Assert.Equal("Banana", resultado.Nombre); // Aseguramos que es el correcto para que la prueba valide    
+        Assert.NotNull(resultado); // Aseguramos que devolvió algo, es decir que la variable no sea nula
+        Assert.Equal("Banana", resultado.Nombre); // Aseguramos que el producto traido sea el correcto, para que la prueba valide al 100%    
     }
 
     [Fact]
@@ -58,11 +57,11 @@ public class Test_Tienda
         var resultado = miTienda.BuscarProducto("Inexistente"); // deberia devolver null
 
         // Assert
-        Assert.Null(resultado); // Como no existe, debe resultado debe ser null para que la prueba valide
+        Assert.Null(resultado); // Como el producto "inexistente" no existe, el valor en "resultado" debe ser null para que la prueba valide
     }
 
     [Fact]
-    public void EliminarProducto_ProductoExistente_RetornaTrueYLoBorra()
+    public void EliminarProducto_ProductoExistente_RetornaTrue()
     {
         // Arrange
         Tienda miTienda = new Tienda();
@@ -98,16 +97,13 @@ public class Test_Tienda
         bool resultado = miTienda.EliminarProducto("Manzanaa");
 
         // Assert
-        Assert.False(resultado); // resultado debe ser false para que nos confirma que falló porque no estaba
+        Assert.False(resultado); // "resultado" debe ser false para que nos confirma que falló porque no estaba y así se valide la prueba
     }
 
 
 
     // -------------------------------------- FIN PARTE DEL PUNTO 1 ------------------------------------------------------------ 
 
-    
-
-    
     
     
     // -------------------------------------------- PUNTO 3 ------------------------------------------------------------ 
@@ -119,8 +115,8 @@ public class Test_Tienda
         Tienda miTienda = new Tienda();
         var mockProducto = new Mock<Producto>(); // creo el objeto que se va a comportar como producto (simulamos)
         // Le programamos las respuestas fijas (Esto sería actuar como Stub)
-        mockProducto.SetupGet(p => p.Nombre).Returns("Yerba");// cuando se consulte el nombre de este producto devolvera banana
-        mockProducto.SetupGet(p => p.Precio).Returns(1000);// cuando se consulte por precio devolvera 1000. El metodo Aplicar descuento de tienda verá 1000
+        mockProducto.SetupGet(p => p.Nombre).Returns("Yerba");// cuando se consulte el nombre de este producto devolvera yerba
+        mockProducto.SetupGet(p => p.Precio).Returns(1000);// cuando se consulte por precio devolvera 1000. El metodo Aplicardescuento() de tienda verá 1000
         // Agregamos el objeto simulado a la tienda 
         miTienda.AgregarProducto(mockProducto.Object); //mockProducto.Object es el Producto simulado.
 
@@ -129,13 +125,13 @@ public class Test_Tienda
         // Act
 
         // Le pedimos a la tienda que le aplique un 20% de descuento a la Yerba
-        miTienda.AplicarDescuento("Yerba", 20); //Le estamos diciendo a la tienda, aplicale un descuento del 20% al producto yerba.
-        //lugo de aplicar el descuento el precio final queda en 800 (ver logica en tienda).
+        miTienda.AplicarDescuento("Yerba", 20); 
+        //lugo de aplicar el descuento la variable precioFinal queda en 800 (ver logica del metodo en tienda).
 
         
         // Assert
 
-        // con esto verfico que el metodo ActualizarPrecio se haya llamado una vez (por el objeto mockProducto) y que dicho metodo haya recibido el valor 800 como parametro
+        // con esto verfico que el metodo ActualizarPrecio() de la clase tienda se haya llamado una vez (por el objeto mockProducto) y que en dicho llamado dicho metodo haya recibido el valor 800 como parametro
         mockProducto.Verify(p => p.ActualizarPrecio(800), Times.Once);
     }
 }
