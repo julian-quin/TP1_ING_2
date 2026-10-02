@@ -40,7 +40,7 @@ public class Test_Tienda
         var resultado = miTienda.BuscarProducto("Banana");
 
         // Assert
-        Assert.NotNull(resultado); // Aseguramos que devolvió algo, es decir que la variable no sea nula
+        Assert.NotNull(resultado); // Nos aseguramos de que la busqueda devolvió algo, es decir que la variable no sea nula
         Assert.Equal("Banana", resultado.Nombre); // Aseguramos que el producto traido sea el correcto, para que la prueba valide al 100%    
     }
 
