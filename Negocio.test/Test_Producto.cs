@@ -6,7 +6,7 @@ namespace Negocio.test;
 public class Test_Producto
 {
 
-    // -------------------------- PARTE DEL PUNTO 1 -------------------------------
+    // ----------------------------------------- PARTE DEL PUNTO 1 -------------------------------------------
     [Fact]
     public void Constructor_ConDatosValidos_AsignaLasPropiedadesCorrectamente()
     {
@@ -45,4 +45,22 @@ public class Test_Producto
         Assert.Equal(2500, producto.Precio);
         Assert.Equal(Categoria.Limpieza, producto.Categoria);
     }
+
+    // ------------------------------------------------ FIN ----------------------------------------------------
+
+
+    // ----------------------------------------- PARTE DEL PUNTO 2 --------------------------------------------
+    
+    [Fact]
+    public void ActualizarPrecio_PrecioNegativo_LanzaException()
+    {
+        // Arrange
+        Producto producto = new Producto("Yerba", 1000, Categoria.NoPerecedero);
+
+        // Act & Assert
+        // Encerramos la acción problemática adentro de Assert.Throws usando una función flecha () =>
+        Assert.Throws<ArgumentException>(() => producto.ActualizarPrecio(-500));
+    }
+
+    // ------------------------------------------------ FIN ----------------------------------------------------
 }

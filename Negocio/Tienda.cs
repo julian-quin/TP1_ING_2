@@ -15,6 +15,11 @@ public class Tienda
         return false;
         
     }
+
+    /* 
+    // -------------------------- BuscarProducto y EliminarProducto sin exepciones ------------------------------------------
+   
+   
     public Producto BuscarProducto(string nombre)
     {
         return _productos.FirstOrDefault(p => p.Nombre == nombre);
@@ -30,7 +35,31 @@ public class Tienda
         _productos.Remove(productoEncontrado);
         return true;
     }
+    
+    */
 
+
+    //--------------------------- BuscarProducto y EliminarProducto con exepciones ----------------------------
+
+    public Producto BuscarProducto(string nombre)
+    {
+        var producto = _productos.FirstOrDefault(p => p.Nombre == nombre);
+        
+        if (producto == null) throw new InvalidOperationException("El producto no existe en el inventario.");
+        
+        return producto;
+    }
+
+    public bool EliminarProducto(string nombre)
+    {
+        var productoEncontrado = _productos.FirstOrDefault(p => p.Nombre == nombre);
+        
+        if (productoEncontrado == null) throw new InvalidOperationException("No se puede eliminar porque el producto no existe.");
+        _productos.Remove(productoEncontrado);
+        return true;
+    }
+
+    //----------------------------------------------------------------------------------------------------------------------------
     public bool AplicarDescuento(string nombre, double porcentaje)
     {
         var producto = BuscarProducto(nombre);

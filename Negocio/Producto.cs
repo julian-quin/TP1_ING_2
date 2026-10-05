@@ -26,8 +26,18 @@ public class Producto
         Precio = precio;
         Categoria = categoria;
     }
+
+    //sin exepciones
+
+    // public virtual void ActualizarPrecio(double nuevoPrecio)
+    // {
+    //     Precio = nuevoPrecio;
+    // }
+    
+    // con exeociones 
     public virtual void ActualizarPrecio(double nuevoPrecio)
     {
+        if (nuevoPrecio < 0)  throw new ArgumentException("El precio no puede ser negativo.");
         Precio = nuevoPrecio;
     }
 }

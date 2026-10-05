@@ -12,7 +12,7 @@ public class Test_Tienda
 
     //a. agregar producto al inventario
     [Fact]
-    public void AgregarProducto_ProductoValido_SeGuardaCorrectamente()
+    public void AgregarProducto_ProductoValido_RetornaTrue()
     {
         // Arrange
         Tienda miTienda = new Tienda(); 
@@ -44,46 +44,88 @@ public class Test_Tienda
         Assert.Equal("Banana", resultado.Nombre); // Aseguramos que el producto traido sea el correcto, para que la prueba valide al 100%    
     }
 
+    // [Fact]
+    // public void BuscarProducto_NombreIncorrecto_RetornaNull() 
+    // {
+    //     // Arrange
+    //     Tienda miTienda = new Tienda(); // Tienda vacía
+
+    //     miTienda.AgregarProducto(new Producto("Manzana", 1000, Categoria.Verdura));
+    //     miTienda.AgregarProducto(new Producto("Pera", 1200, Categoria.Verdura));
+
+    //     // Act
+    //     var resultado = miTienda.BuscarProducto("Inexistente"); // deberia devolver null
+
+    //     // Assert
+    //     Assert.Null(resultado); // Como el producto "inexistente" no existe, el valor en "resultado" debe ser null para que la prueba valide
+    // }
+
+    // [Fact]
+    // public void EliminarProducto_ProductoExistente_RetornaTrue()
+    // {
+    //     // Arrange
+    //     Tienda miTienda = new Tienda();
+    //     Producto productoReal = new Producto("Manzana", 1000, Categoria.Verdura);
+        
+    //     // Lo agregamos nosotros mismos a mano para que exista
+    //     miTienda.AgregarProducto(productoReal); 
+
+    //     // Act
+    //     // Lo borramos
+    //     bool resultado = miTienda.EliminarProducto("Manzana");
+        
+    //     // Lo buscamos para confirmar que ya no está
+    //     var busquedaPosterior = miTienda.BuscarProducto("Manzana");
+
+    //     // Assert
+    //     Assert.True(resultado); // Si resultado queda en true nos confirma que lo pudo eliminar
+    //     Assert.Null(busquedaPosterior); // Al buscarlo, ya nos tiene que dar nulo
+    // }
+
+    // [Fact]
+    // public void EliminarProducto_ProductoInexistente_RetornaFalse()
+    // {
+    //     // Arrange
+    //     Tienda miTienda = new Tienda(); 
+    //     Producto producto1 = new Producto("Manzana", 1000, Categoria.Verdura);
+    //     Producto producto2 = new Producto("Coca Cola", 1500, Categoria.Bebidas);
+    //     miTienda.AgregarProducto(producto1); 
+    //     miTienda.AgregarProducto(producto2); 
+        
+    //     // Act
+    //     // Intentamos borrar algo que no existe
+    //     bool resultado = miTienda.EliminarProducto("Manzanaa");
+
+    //     // Assert
+    //     Assert.False(resultado); // "resultado" debe ser false para que nos confirma que falló porque no estaba y así se valide la prueba
+    // }
+
+
+
+    // -------------------------------------- FIN PARTE DEL PUNTO 1 ------------------------------------------------------------ 
+
+    
+
+    // ------------------------------------------- PARTE PUNTO 2 -----------------------------------------------------
+
     [Fact]
-    public void BuscarProducto_NombreIncorrecto_RetornaNull() 
+    public void EliminarProducto_ProductoInexistente_LanzaException()
     {
         // Arrange
-        Tienda miTienda = new Tienda(); // Tienda vacía
+        Tienda miTienda = new Tienda(); // Tienda vacía a propósito
 
-        miTienda.AgregarProducto(new Producto("Manzana", 1000, Categoria.Verdura));
-        miTienda.AgregarProducto(new Producto("Pera", 1200, Categoria.Verdura));
+        Producto producto1 = new Producto("Manzana", 1000, Categoria.Verdura);
+        Producto producto2 = new Producto("Coca Cola", 1500, Categoria.Bebidas);
+        miTienda.AgregarProducto(producto1); 
+        miTienda.AgregarProducto(producto2); 
 
-        // Act
-        var resultado = miTienda.BuscarProducto("Inexistente"); // deberia devolver null
-
-        // Assert
-        Assert.Null(resultado); // Como el producto "inexistente" no existe, el valor en "resultado" debe ser null para que la prueba valide
+        // Act & Assert
+        // Intentamos borrar algo que no está. Esperamos que xUnit ataje el InvalidOperationException.
+        Assert.Throws<InvalidOperationException>(() => miTienda.EliminarProducto("Fantasma")); // si pusieramos manzana es test da error
     }
 
     [Fact]
-    public void EliminarProducto_ProductoExistente_RetornaTrue()
-    {
-        // Arrange
-        Tienda miTienda = new Tienda();
-        Producto productoReal = new Producto("Manzana", 1000, Categoria.Verdura);
-        
-        // Lo agregamos nosotros mismos a mano para que exista
-        miTienda.AgregarProducto(productoReal); 
-
-        // Act
-        // Lo borramos
-        bool resultado = miTienda.EliminarProducto("Manzana");
-        
-        // Lo buscamos para confirmar que ya no está
-        var busquedaPosterior = miTienda.BuscarProducto("Manzana");
-
-        // Assert
-        Assert.True(resultado); // Si resultado queda en true nos confirma que lo pudo eliminar
-        Assert.Null(busquedaPosterior); // Al buscarlo, ya nos tiene que dar nulo
-    }
-
-    [Fact]
-    public void EliminarProducto_ProductoInexistente_RetornaFalse()
+    public void BuscarProducto_NombreIncorrecto_LanzaException() 
     {
         // Arrange
         Tienda miTienda = new Tienda(); 
@@ -91,20 +133,11 @@ public class Test_Tienda
         Producto producto2 = new Producto("Coca Cola", 1500, Categoria.Bebidas);
         miTienda.AgregarProducto(producto1); 
         miTienda.AgregarProducto(producto2); 
-        
-        // Act
-        // Intentamos borrar algo que no existe
-        bool resultado = miTienda.EliminarProducto("Manzanaa");
 
-        // Assert
-        Assert.False(resultado); // "resultado" debe ser false para que nos confirma que falló porque no estaba y así se valide la prueba
+        // Act & Assert
+        Assert.Throws<InvalidOperationException>(() => miTienda.BuscarProducto("Inexistente")); // si pusieramos manzana es test da error
     }
 
-
-
-    // -------------------------------------- FIN PARTE DEL PUNTO 1 ------------------------------------------------------------ 
-
-    
     
     // -------------------------------------------- PUNTO 3 ------------------------------------------------------------ 
     
@@ -119,8 +152,6 @@ public class Test_Tienda
         mockProducto.SetupGet(p => p.Precio).Returns(1000);// cuando se consulte por precio devolvera 1000. El metodo Aplicardescuento() de tienda verá 1000
         // Agregamos el objeto simulado a la tienda 
         miTienda.AgregarProducto(mockProducto.Object); //mockProducto.Object es el Producto simulado.
-
-       
        
         // Act
 
