@@ -7,7 +7,7 @@
 
 
 
-## Ejecución de Pruebas
+## Ejecución de Pruebas con Xunit
 
 Este proyecto está desarrollado en **C#** y requiere el **SDK de .NET 10.0**. Es indispensable contar con esta versión instalada para garantizar la correcta compilación y evitar problemas de compatibilidad.
 
