@@ -16,10 +16,12 @@ public class Tienda
         
     }
 
-    /* 
+     
     // -------------------------- BuscarProducto y EliminarProducto sin exepciones ------------------------------------------
    
-   
+   // nota : en realidad a estos habia que modificarlos, pero los dejé para no borrar las pruebas del apartado 1
+   // agregué los mismos metodos abajo con el mismo nombre + una "E" para que se sepa que son los que manejan
+   // exepciones. Lo hice asi solo con fines de aprender. Lo correcto seria modificarlos a estos directamente:
     public Producto BuscarProducto(string nombre)
     {
         return _productos.FirstOrDefault(p => p.Nombre == nombre);
@@ -35,13 +37,11 @@ public class Tienda
         _productos.Remove(productoEncontrado);
         return true;
     }
-    
-    */
 
 
     //--------------------------- BuscarProducto y EliminarProducto con exepciones ----------------------------
 
-    public Producto BuscarProducto(string nombre)
+    public Producto BuscarProductoE(string nombre)
     {
         var producto = _productos.FirstOrDefault(p => p.Nombre == nombre);
         
@@ -50,7 +50,7 @@ public class Tienda
         return producto;
     }
 
-    public bool EliminarProducto(string nombre)
+    public bool EliminarProductoE(string nombre)
     {
         var productoEncontrado = _productos.FirstOrDefault(p => p.Nombre == nombre);
         
