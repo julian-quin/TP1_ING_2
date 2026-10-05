@@ -3,4 +3,4 @@
 **Integrantes:**
 - Falco, Luciano Sebastian
 - Isasmendi, Javier Alfredo
-- Quinteros, Julio Cesar (usuario git: julian-quin, julianquinn18)
+- Quinteros, Julio Cesar - (usuario git: julian-quin, julianquinn18)
