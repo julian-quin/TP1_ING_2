@@ -166,4 +166,55 @@ public class Test_Tienda
         // con esto verfico que el metodo ActualizarPrecio() de la clase tienda se haya llamado una vez (por el objeto mockProducto) y que en dicho llamado dicho metodo haya recibido el valor 800 como parametro
         mockProducto.Verify(p => p.ActualizarPrecio(800), Times.Once);
     }
+
+    // -----------------------------------------------------------------------------------
+    // PUNTO 5: Pruebas de Integración (Flujo Completo del Carrito)
+    // -----------------------------------------------------------------------------------
+
+    [Fact]
+    public void CalcularTotalCarrito_FlujoCompletoConDescuentos_RetornaSumaCorrecta()
+    {
+        // Arrange
+        Tienda tienda = new Tienda();
+        tienda.AgregarProducto(new Producto("Manzana", 1000, Categoria.Verdura));
+        tienda.AgregarProducto(new Producto("Leche", 2000, Categoria.Lacteos));
+        tienda.AgregarProducto(new Producto("Bebida", 1500, Categoria.Bebidas));
+
+        // Aplicamos descuento del 10% a la Leche (pasa de $2000 a $1800)
+        tienda.AplicarDescuento("Leche", 10);
+
+        // Armamos el carrito de compras con nombres de productos
+        List<string> carrito = new List<string> { "Manzana", "Leche" };
+
+        // Act: Calculamos el total acumulado del carrito
+        double totalCalculado = tienda.CalcularTotalCarrito(carrito);
+
+        // Assert: $1000 (Manzana) + $1800 (Leche con descuento) = $2800
+        Assert.Equal(2800, totalCalculado);
+    }
+
+    [Fact]
+    public void AplicarDescuento_ProductoExistente_CalculaYLlamaActualizarPrecioEnElMock()
+    {
+        // Arrange
+        Tienda miTienda = new Tienda();
+        
+        // Creamos un Mock de la clase Producto para aislar la prueba de la implementación real
+        var mockProducto = new Mock<Producto>();
+        
+        // Configuramos comportamientos simulados (Stubbing)
+        mockProducto.SetupGet(p => p.Nombre).Returns("Yerba");
+        mockProducto.SetupGet(p => p.Precio).Returns(1000);
+
+        // Agregamos el objeto simulado (mockProducto.Object) a la tienda
+        miTienda.AgregarProducto(mockProducto.Object);
+
+        // Act: Aplicamos un 20% de descuento.
+        // Cálculo esperado: 1000 - (1000 * 0.20) = 800
+        miTienda.AplicarDescuento("Yerba", 20);
+
+        // Assert: Verificamos que el método ActualizarPrecio del objeto mock haya sido
+        // invocado exactamente 1 vez pasando el valor 800 como parámetro.
+        mockProducto.Verify(p => p.ActualizarPrecio(800), Times.Once);
+    }
 }
