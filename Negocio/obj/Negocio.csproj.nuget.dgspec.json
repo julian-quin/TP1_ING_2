@@ -1,31 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lucia\\OneDrive\\Documentos\\Ingenieria_sw_2\\tp_testing\\TP1_ING_2\\Negocio\\Negocio.csproj": {}
+    "C:\\Users\\emperador\\Desktop\\X\\TP1_ING_2\\Negocio\\Negocio.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lucia\\OneDrive\\Documentos\\Ingenieria_sw_2\\tp_testing\\TP1_ING_2\\Negocio\\Negocio.csproj": {
+    "C:\\Users\\emperador\\Desktop\\X\\TP1_ING_2\\Negocio\\Negocio.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lucia\\OneDrive\\Documentos\\Ingenieria_sw_2\\tp_testing\\TP1_ING_2\\Negocio\\Negocio.csproj",
+        "projectUniqueName": "C:\\Users\\emperador\\Desktop\\X\\TP1_ING_2\\Negocio\\Negocio.csproj",
         "projectName": "Negocio",
-        "projectPath": "C:\\Users\\Lucia\\OneDrive\\Documentos\\Ingenieria_sw_2\\tp_testing\\TP1_ING_2\\Negocio\\Negocio.csproj",
-        "packagesPath": "C:\\Users\\Lucia\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lucia\\OneDrive\\Documentos\\Ingenieria_sw_2\\tp_testing\\TP1_ING_2\\Negocio\\obj\\",
+        "projectPath": "C:\\Users\\emperador\\Desktop\\X\\TP1_ING_2\\Negocio\\Negocio.csproj",
+        "packagesPath": "C:\\Users\\emperador\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\emperador\\Desktop\\X\\TP1_ING_2\\Negocio\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Lucia\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\emperador\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
