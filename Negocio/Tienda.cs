@@ -75,15 +75,20 @@ public class Tienda
         return true;
     }
 
-    public double CalcularTotalCarrito(List<string> carrito)
+   public double CalcularTotalCarrito(List<string> carrito)
     {
         double total = 0;
-        if (carrito == null) return 0;
-        foreach (var nombreProducto in carrito)
+        
+        foreach (var nombre in carrito)
         {
-            var producto = BuscarProducto(nombreProducto);
-            total += producto.Precio;
+            var producto = BuscarProducto(nombre); 
+            
+            if (producto != null)
+            {
+                total += producto.Precio;
+            }
         }
+        
         return total;
     }
 

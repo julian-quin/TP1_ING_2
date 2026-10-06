@@ -233,25 +233,25 @@ public class Test_Tienda : IClassFixture<TiendaFixture>
 
     }
     [Fact]
-    public void CalcularTotalCarrito_FlujoCompletoConDescuentos_RetornaSumaCorrecta()
+    public void IntegracionTienda()
     {
-        // Arrange
-        Tienda tienda = new Tienda();
-        tienda.AgregarProducto(new Producto("Manzana", 1000, Categoria.Verdura));
-        tienda.AgregarProducto(new Producto("Leche", 2000, Categoria.Lacteos));
-        tienda.AgregarProducto(new Producto("Bebida", 1500, Categoria.Bebidas));
+        Tienda miTienda = _fixture.CrearTiendaConProductos(); 
+        var carrito = new List<string>(){"Manzana","Lechuga","Uva","Torta de ojaldre","Pera"};
 
-        // Aplicamos descuento del 10% a la Leche (pasa de $2000 a $1800)
-        tienda.AplicarDescuento("Leche", 10);
+        miTienda.AgregarProducto(new Producto("1Kg de helado", 5200, Categoria.Lacteos));
+        miTienda.AgregarProducto(new Producto("Anana", 2800, Categoria.Verdura));
 
-        // Armamos el carrito de compras con nombres de productos
-        List<string> carrito = new List<string> { "Manzana", "Leche" };
+        foreach (var nombre in carrito)
+        {
+            miTienda.AplicarDescuento(nombre, 10);
+        }
 
-        // Act: Calculamos el total acumulado del carrito
-        double totalCalculado = tienda.CalcularTotalCarrito(carrito);
+        miTienda.EliminarProducto("Manzana");
 
-        // Assert: $1000 (Manzana) + $1800 (Leche con descuento) = $2800
-        Assert.Equal(2800, totalCalculado);
+        double descuentoCalculado =  miTienda.CalcularTotalCarrito(carrito);
+        double descuentoEsperado = 11520;
+
+        Assert.Equal(descuentoEsperado, descuentoCalculado);
     }
 
 }
