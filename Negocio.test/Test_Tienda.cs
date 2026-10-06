@@ -1,10 +1,14 @@
 ﻿using Xunit;
 using Negocio;
 using Moq;
-public class Test_Tienda
+public class Test_Tienda : IClassFixture<TiendaFixture>
 {
+    private readonly TiendaFixture _fixture;
 
-
+    public Test_Tienda(TiendaFixture fixture)
+    {
+        _fixture = fixture;
+    }
     // para escribir los metodos de prueba usamos el patron AAA (Arrange,Act,Assert)
     // estructura de nombre del metodo que prueban ( NombreDelMetodo_EscenarioAProbar_ResultadoEsperado )
    
@@ -15,7 +19,7 @@ public class Test_Tienda
     public void AgregarProducto_ProductoValido_RetornaTrue()
     {
         // Arrange
-        Tienda miTienda = new Tienda(); 
+        Tienda miTienda = _fixture.CrearTiendaConProductos();        
         Producto nuevoProducto = new Producto("Banana", 1500, Categoria.Verdura);
 
         // Act
@@ -32,26 +36,27 @@ public class Test_Tienda
     public void BuscarProducto_NombreCorrecto_RetornaProducto() 
     {
         // Arrange
-        Tienda miTienda = new Tienda();
-        Producto producto = new Producto("Banana", 1500,Categoria.Verdura);
-        miTienda.AgregarProducto(producto); // Lo agregamos para poder buscarlo
+        Tienda miTienda = _fixture.CrearTiendaConProductos(); //Aqui el fixture del punto 4 crea una tienda que ya contiene Manzana y Pera
 
         // Act
-        var resultado = miTienda.BuscarProducto("Banana");
+        var resultado = miTienda.BuscarProducto("Manzana");
 
         // Assert
         Assert.NotNull(resultado); // Nos aseguramos de que la busqueda devolvió algo, es decir que la variable no sea nula
-        Assert.Equal("Banana", resultado.Nombre); // Aseguramos que el producto traido sea el correcto, para que la prueba valide al 100%    
+        Assert.Equal("Manzana", resultado.Nombre); // Aseguramos que el producto traido sea el correcto, para que la prueba valide al 100%    
     }
+
+
+// Arrange: el fixture crea una tienda que ya contiene Manzana y Pera
+
+    // Act
 
     [Fact]
     public void BuscarProducto_NombreIncorrecto_RetornaNull() 
     {
         // Arrange
-        Tienda miTienda = new Tienda(); // Tienda vacía
+        var miTienda = _fixture.CrearTiendaConProductos(); //Aqui el fixture del punto 4 crea una tienda que ya contiene Manzana y Pera
 
-        miTienda.AgregarProducto(new Producto("Manzana", 1000, Categoria.Verdura));
-        miTienda.AgregarProducto(new Producto("Pera", 1200, Categoria.Verdura));
 
         // Act
         var resultado = miTienda.BuscarProducto("Inexistente"); // deberia devolver null
@@ -167,3 +172,5 @@ public class Test_Tienda
         mockProducto.Verify(p => p.ActualizarPrecio(800), Times.Once);
     }
 }
+
+
