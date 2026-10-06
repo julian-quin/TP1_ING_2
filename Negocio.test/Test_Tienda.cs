@@ -198,10 +198,40 @@ public class Test_Tienda : IClassFixture<TiendaFixture>
         mockProducto.Verify(p => p.ActualizarPrecio(800), Times.Once);
     }
 
-        // -----------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------
     // PUNTO 5: Pruebas de Integración (Flujo Completo del Carrito)
     // -----------------------------------------------------------------------------------
 
+
+    [Fact]
+    public void CalcularTotalCarrito_SinDescuento()
+    {
+        Tienda miTienda = _fixture.CrearTiendaConProductos(); 
+        var carrito = new List<string>(){"Manzana","Pera"};
+
+        double totalActual = miTienda.CalcularTotalCarrito(carrito);
+        double totalEsperado = 2200;
+
+        Assert.Equal(totalEsperado, totalActual);
+    }
+
+    [Fact]
+    public void CalcularTotalCarrito_ConDescuento()
+    {
+        Tienda miTienda = _fixture.CrearTiendaConProductos(); 
+        var carrito = new List<string>(){"Manzana","Lechuga","Uva"};
+
+        foreach (var nombre in carrito)
+        {
+            miTienda.AplicarDescuento(nombre,10);
+        }
+
+        double descuentoCalculado = miTienda.CalcularTotalCarrito(carrito);
+        double descuentoEsperado = 2340;
+
+        Assert.Equal(descuentoEsperado, descuentoCalculado);
+
+    }
     [Fact]
     public void CalcularTotalCarrito_FlujoCompletoConDescuentos_RetornaSumaCorrecta()
     {
