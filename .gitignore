@@ -1,0 +1,18 @@
+# Salidas de compilación de .NET
+[Bb]in/
+[Oo]bj/
+
+# Archivos locales de Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Archivos locales de JetBrains Rider
+.idea/
+
+# Resultados y cobertura de pruebas
+[Tt]est[Rr]esults/
+*.coverage
+*.coveragexml
