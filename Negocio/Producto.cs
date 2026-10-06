@@ -27,13 +27,6 @@ public class Producto
         Categoria = categoria;
     }
 
-    //sin exepciones
-
-    // public virtual void ActualizarPrecio(double nuevoPrecio)
-    // {
-    //     Precio = nuevoPrecio;
-    // }
-    
     // con exeociones 
     public virtual void ActualizarPrecio(double nuevoPrecio)
     {

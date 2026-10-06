@@ -24,18 +24,21 @@ public class Tienda
    // exepciones. Lo hice asi solo con fines de aprender. Lo correcto seria modificarlos a estos directamente:
     public Producto BuscarProducto(string nombre)
     {
-        return _productos.FirstOrDefault(p => p.Nombre == nombre);
+        var producto = _productos.FirstOrDefault(p => p.Nombre == nombre);
+        if (producto == null) 
+            throw new InvalidOperationException("El producto no existe en el inventario.");       
+        return producto;
     }
 
     public bool EliminarProducto(string nombre)
     {
-        var productoEncontrado = BuscarProducto(nombre);
-        if (productoEncontrado == null)
-        {
-            return false;
-        }
+        var productoEncontrado = _productos.FirstOrDefault(p => p.Nombre == nombre);
+        if (productoEncontrado == null) 
+            throw new InvalidOperationException("No se puede eliminar porque el producto no existe.");
+            
         _productos.Remove(productoEncontrado);
         return true;
+
     }
 
 
@@ -64,10 +67,6 @@ public class Tienda
     {
         var producto = BuscarProducto(nombre);
 
-        if (producto == null)
-        {
-            return false;
-        }
         double descuento = producto.Precio * (porcentaje / 100);
         double precioFinal = producto.Precio - descuento;
 
@@ -75,5 +74,18 @@ public class Tienda
 
         return true;
     }
+
+    public double CalcularTotalCarrito(List<string> carrito)
+    {
+        double total = 0;
+        if (carrito == null) return 0;
+        foreach (var nombreProducto in carrito)
+        {
+            var producto = BuscarProducto(nombreProducto);
+            total += producto.Precio;
+        }
+        return total;
+    }
+
 
 }

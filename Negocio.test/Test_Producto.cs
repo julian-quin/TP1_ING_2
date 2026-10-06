@@ -54,12 +54,42 @@ public class Test_Producto
     [Fact]
     public void ActualizarPrecio_PrecioNegativo_LanzaException()
     {
-        // Arrange
+        // -------------------------------------------------------------------------------
+        // ARRANGE (Preparar): Instanciamos un producto válido.
+        // -------------------------------------------------------------------------------
         Producto producto = new Producto("Yerba", 1000, Categoria.NoPerecedero);
+        double precioInvalido = -500;
 
-        // Act & Assert
-        // Encerramos la acción problemática adentro de Assert.Throws usando una función flecha () =>
-        Assert.Throws<ArgumentException>(() => producto.ActualizarPrecio(-500));
+        // -------------------------------------------------------------------------------
+        // ACT & ASSERT (Actuar y Verificar en conjunto):
+        // Usamos Assert.Throws para capturar la excepción que se espera lanzar cuando se
+        // invoca el método con un argumento fuera del rango válido (negativo).
+        // -------------------------------------------------------------------------------
+        var excepcionLanzada = Assert.Throws<ArgumentException>(() => producto.ActualizarPrecio(precioInvalido));
+
+        // Verificación Adicional: Comprobamos que el mensaje de error de la excepción
+        // contenga la explicación correspondiente.
+        Assert.Equal("El precio no puede ser negativo.", excepcionLanzada.Message);
+    }
+
+    [Fact]
+    public void ActualizarPrecio_PrecioValido_ActualizaElPrecioCorrectamente()
+    {
+        // -------------------------------------------------------------------------------
+        // ARRANGE (Preparar): Creamos un producto inicial con precio de $1000.
+        // -------------------------------------------------------------------------------
+        Producto producto = new Producto("Yerba", 1000, Categoria.NoPerecedero);
+        double nuevoPrecioValido = 1800;
+
+        // -------------------------------------------------------------------------------
+        // ACT (Actuar): Invocamos el método con un precio positivo legítimo.
+        // -------------------------------------------------------------------------------
+        producto.ActualizarPrecio(nuevoPrecioValido);
+
+        // -------------------------------------------------------------------------------
+        // ASSERT (Afirmar/Verificar): Confirmamos que el precio cambió exitosamente a $1800.
+        // -------------------------------------------------------------------------------
+        Assert.Equal(nuevoPrecioValido, producto.Precio);
     }
 
     // ------------------------------------------------ FIN ----------------------------------------------------
